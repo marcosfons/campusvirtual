@@ -1,5 +1,8 @@
 import 'dart:typed_data';
 
+import 'Pdf.dart';
+import 'Section.dart';
+
 class Materia {
   int id;
   String fullname;
@@ -7,6 +10,8 @@ class Materia {
   int startdate;
   String url;
   Uint8List imagem;
+  List<Section> sections;
+  // List<Pdf> pdfs = [];
 
   Materia.fromJson(Map json) {
     this.id = json['id'];

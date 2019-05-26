@@ -1,4 +1,8 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:campus_virtual/src/pages/home/home-page.dart';
 import 'package:flutter/material.dart';
+
+import 'login-bloc.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -6,6 +10,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMixin {
+
+  final LoginBloc bloc = BlocProvider.getBloc<LoginBloc>();
 
   String imagemFundo = 'https://ufsj.edu.br/portal2-repositorio/File/dce/ufsj_ctan_site.jpg';
   String logo = 'https://ufsj.edu.br/portal2-images/menu-logo_menor.png';
@@ -15,6 +21,13 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   @override
   void initState() {
     super.initState();
+    bloc.outLogado.listen((data) {
+      if(data)
+        Navigator.pushReplacement(
+          context, 
+          MaterialPageRoute(builder: (BuildContext context) => HomePage())
+        );
+    });
     animation = AnimationController(vsync: this, duration: Duration(seconds: 10),);
     animation.forward();
     animation.addStatusListener((status) {
@@ -25,7 +38,15 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
   }
 
   @override
+  void dispose() {
+    animation.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
+    
     return Material(
       color: Colors.black,
       child: Stack(
@@ -84,7 +105,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       padding: const EdgeInsets.only(top: 18.0),
                       child: FlatButton(
                         color: Color.fromRGBO(192, 38, 46, 1),
-                        onPressed: () {},
+                        onPressed: () => bloc.logar('09683282610', '09683282610'),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 30.0),
                           child: Text('Entrar', style: TextStyle(color: Colors.white),),
