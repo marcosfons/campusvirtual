@@ -15,13 +15,16 @@ class _InternetPageState extends State<InternetPage> {
   
   static const String url = 'http://gstatic.com/generate_204';
 
+  String _username = '';
+  String _password = '';
+
   void logar() async {
     var r = await http.get(url);
     final String link = r.body.substring(r.body.indexOf('location="') + 10, r.body.indexOf('";'));
     var data = {};
     http.get(link).then((r) {
       var inputs = parse(r.body).getElementsByTagName('input');
-      data = {'username': '09683282610', 'password': '09683282610'};
+      data = {'username': _username, 'password': _password};
       data[inputs[0].attributes['name']] = inputs[0].attributes['value'];
       data[inputs[1].attributes['name']] = inputs[1].attributes['value'];
     }).whenComplete(() async {

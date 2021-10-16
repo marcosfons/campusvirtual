@@ -18,6 +18,9 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
 
   AnimationController animation;
 
+  String _username = '';
+  String _password = '';
+
   @override
   void initState() {
     super.initState();
@@ -105,7 +108,7 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                       padding: const EdgeInsets.only(top: 18.0),
                       child: FlatButton(
                         color: Color.fromRGBO(192, 38, 46, 1),
-                        onPressed: () => bloc.logar('09683282610', '09683282610'),
+                        onPressed: () => bloc.logar(_username, _password),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 30.0),
                           child: Text('Entrar', style: TextStyle(color: Colors.white),),
